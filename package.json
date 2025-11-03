@@ -1,0 +1,45 @@
+{
+  "name": "webdatabasehifi",
+  "version": "2.0.0",
+  "description": "Web Database HIFI Unpad",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "author": "Muhammad Lahia Ardhan",
+  "dependencies": {
+    "admin-lte": "^4.0.0-rc3",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "~1.4.7",
+    "debug": "~4.4.3",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "http-errors": "~2.0.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.30.1",
+    "mongoose": "^8.19.2",
+    "morgan": "^1.10.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
+    "tailwindcss": "^4.1.16"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpuhififmipaunpad-make/DATABASE-HIFI25.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kpuhififmipaunpad-make/DATABASE-HIFI25/issues"
+  },
+  "homepage": "https://github.com/kpuhififmipaunpad-make/DATABASE-HIFI25#readme"
+}

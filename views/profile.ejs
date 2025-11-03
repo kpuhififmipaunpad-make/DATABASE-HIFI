@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - HIFI Database</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="/img/LogoHIFI-2.png?v=2">
+  <link rel="apple-touch-icon" href="/img/LogoHIFI-2.png?v=2">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #1E3A8A 0%, #DC143C 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .profile-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-top: 40px;
+    }
+    
+    .profile-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 30px;
+      text-align: center;
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #DC143C 0%, #1E3A8A 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 48px;
+      color: white;
+      box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .profile-name {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #DC143C 0%, #1E3A8A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    
+    .profile-username {
+      color: #6B7280;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .profile-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(220, 20, 60, 0.1);
+      border: 1px solid #DC143C;
+      color: #DC143C;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .profile-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1F2937;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(220, 20, 60, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px 24px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .back-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-5px);
+      color: white;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .info-item {
+      padding: 16px;
+      background: rgba(30, 58, 138, 0.05);
+      border-radius: 12px;
+      border-left: 4px solid #1E3A8A;
+      transition: all 0.3s ease;
+    }
+    
+    .info-item:hover {
+      transform: translateX(5px);
+      background: rgba(30, 58, 138, 0.1);
+    }
+    
+    .info-label {
+      color: #6B7280;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    
+    .info-value {
+      color: #1F2937;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+      .profile-header, .profile-card {
+        padding: 24px;
+      }
+      
+      .profile-name {
+        font-size: 24px;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Shapes -->
+  <div class="bg-shape bg-shape-1"></div>
+  <div class="bg-shape bg-shape-2"></div>
+  
+  <!-- Alert Messages -->
+  <% if (message != '') { %>
+    <div id="alert-border-3" class="alert-glass alert-<%= status === 'green' ? 'success' : 'error' %>" style="position: fixed; top: 20px; right: 20px; z-index: 10000; max-width: 400px;">
+      <i class="fas fa-<%= status === 'green' ? 'check-circle' : 'exclamation-circle' %>"></i>
+      <span><%= message %></span>
+      <button onclick="dismiss()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  <% } %>
+  
+  <div class="profile-container">
+    <a href="/" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      Kembali ke Home
+    </a>
+    
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <h1 class="profile-name"><%= user.nama || user.username %></h1>
+      <p class="profile-username">@<%= user.username %></p>
+      <span class="profile-badge">
+        <i class="fas fa-<%= user.role === 'admin' ? 'crown' : 'user' %>"></i>
+        <%= user.role === 'admin' ? 'Administrator' : 'Anggota HIFI' %>
+      </span>
+    </div>
+    
+    <!-- Profile Form -->
+    <div class="profile-card">
+      <form action="/profile" method="POST" data-validate>
+        <div class="section-title">
+          <i class="fas fa-user-circle"></i>
+          Informasi Akun
+        </div>
+        
+        <div class="info-grid">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input 
+              type="text" 
+              name="username" 
+              class="form-control-glass" 
+              value="<%= user.username %>"
+              required
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input 
+              type="email" 
+              name="email" 
+              class="form-control-glass" 
+              value="<%= user.email || '' %>"
+              required
+            >
+          </div>
+        </div>
+        
+        <div class="section-title" style="margin-top: 32px;">
+          <i class="fas fa-id-card"></i>
+          Data Pribadi
+        </div>
+        
+        <div class="info-grid">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap</label>
+            <input 
+              type="text" 
+              name="nama" 
+              class="form-control-glass" 
+              value="<%= user.nama || '' %>"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">NPM</label>
+            <input 
+              type="number" 
+              name="npm" 
+              class="form-control-glass" 
+              value="<%= user.npm || '' %>"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Tempat Lahir</label>
+            <input 
+              type="text" 
+              name="ttl" 
+              class="form-control-glass" 
+              value="<%= user.ttl || '' %>"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Tanggal Lahir</label>
+            <input 
+              type="date" 
+              name="tgl" 
+              class="form-control-glass" 
+              value="<%= user.tgl || '' %>"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Agama</label>
+            <select name="agama" class="form-control-glass">
+              <option value="">Pilih Agama</option>
+              <option value="Islam" <%= user.agama === 'Islam' ? 'selected' : '' %>>Islam</option>
+              <option value="Kristen" <%= user.agama === 'Kristen' ? 'selected' : '' %>>Kristen</option>
+              <option value="Katolik" <%= user.agama === 'Katolik' ? 'selected' : '' %>>Katolik</option>
+              <option value="Hindu" <%= user.agama === 'Hindu' ? 'selected' : '' %>>Hindu</option>
+              <option value="Buddha" <%= user.agama === 'Buddha' ? 'selected' : '' %>>Buddha</option>
+              <option value="Konghucu" <%= user.agama === 'Konghucu' ? 'selected' : '' %>>Konghucu</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Golongan Darah</label>
+            <select name="goldar" class="form-control-glass">
+              <option value="">Pilih Golongan Darah</option>
+              <option value="A" <%= user.goldar === 'A' ? 'selected' : '' %>>A</option>
+              <option value="B" <%= user.goldar === 'B' ? 'selected' : '' %>>B</option>
+              <option value="AB" <%= user.goldar === 'AB' ? 'selected' : '' %>>AB</option>
+              <option value="O" <%= user.goldar === 'O' ? 'selected' : '' %>>O</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">No. HP</label>
+            <input 
+              type="tel" 
+              name="hp" 
+              class="form-control-glass" 
+              value="<%= user.hp || '' %>"
+              placeholder="08xxxxxxxxxx"
+            >
+          </div>
+        </div>
+        
+        <div class="section-title" style="margin-top: 32px;">
+          <i class="fas fa-map-marker-alt"></i>
+          Alamat
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Alamat Rumah</label>
+          <textarea 
+            name="rumah" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="Jalan, Kelurahan, Kecamatan, Kota"
+          ><%= user.rumah || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Alamat Kos</label>
+          <textarea 
+            name="kos" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="Alamat kos di Bandung"
+          ><%= user.kos || '' %></textarea>
+        </div>
+        
+        <div class="section-title" style="margin-top: 32px;">
+          <i class="fas fa-graduation-cap"></i>
+          Riwayat & Pengalaman
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Pendidikan</label>
+          <textarea 
+            name="pendidikan" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="SD, SMP, SMA"
+          ><%= user.pendidikan || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Kepanitiaan</label>
+          <textarea 
+            name="panitia" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="Riwayat kepanitiaan"
+          ><%= user.panitia || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Organisasi</label>
+          <textarea 
+            name="organisasi" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="Riwayat organisasi"
+          ><%= user.organisasi || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Pelatihan</label>
+          <textarea 
+            name="pelatihan" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="Pelatihan yang pernah diikuti"
+          ><%= user.pelatihan || '' %></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Prestasi</label>
+          <textarea 
+            name="prestasi" 
+            class="form-control-glass" 
+            rows="3"
+            placeholder="Prestasi yang pernah diraih"
+          ><%= user.prestasi || '' %></textarea>
+        </div>
+        
+        <div style="display: flex; gap: 16px; margin-top: 32px;">
+          <button type="submit" class="btn-primary-gradient ripple-container" style="flex: 1;">
+            <i class="fas fa-save"></i>
+            Simpan Perubahan
+          </button>
+          <a href="/" class="btn-glass" style="flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #1F2937;">
+            <i class="fas fa-times"></i>
+            Batal
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="/javascript/animations.js"></script>
+  <script>
+    function dismiss() {
+      document.getElementById("alert-border-3").classList.add("hide");
+    }
+    
+    setTimeout(() => {
+      const alert = document.getElementById("alert-border-3");
+      if (alert) dismiss();
+    }, 5000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title><%= typeof title !== 'undefined' ? title : 'Dashboard Admin - HIFI Database' %></title>
+<link rel="icon" type="image/png" href="/img/LogoHIFI-2.png">
+
+<!-- Font Awesome (lokal AdminLTE) -->
+<link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css" />
+
+<!-- DataTables CSS (single version) -->
+<link rel="preconnect" href="https://cdn.datatables.net" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" />
+
+<!-- App CSS (override vendor; TARUH TERAKHIR) -->
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
+<!-- jQuery (dibutuhkan oleh DataTables) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+
+<!-- DataTables core + extensions (single version, urutan penting) -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" defer></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js" defer></script>
+
+<!-- Buttons + deps (export Excel/PDF/Print) -->
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js" defer></script>
+
+<!-- Guard kecil agar init tidak dobel di halaman manapun -->
+<script defer>
+  window.__HIFI__ = window.__HIFI__ || {}; // bisa dipakai di script.ejs untuk pengecekan
+</script>
